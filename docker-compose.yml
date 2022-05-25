@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+
+  redis:
+    image: redis:7.0.0-alpine3.15
+    ports:
+      - "6379:6379"
+  mongo:
+    image: mongo:5.0.8
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: app
+      MONGO_INITDB_ROOT_PASSWORD: 1234_secret
+      MONGO_INITDB_DATABASE: files
