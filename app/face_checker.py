@@ -3,11 +3,11 @@ from io import BytesIO
 from typing import Union
 
 import dlib
-from skimage.io import imread
+from gridfs.grid_file import GridOut
 from scipy.spatial import distance
+from skimage.io import imread
 
-
-FILE = Union[str, BytesIO]
+FILE = Union[str, BytesIO, GridOut]
 
 
 class FaceChecker:
@@ -22,17 +22,29 @@ class FaceChecker:
         self.__class__.instance = self
 
     @classmethod
-    def get_instance(cls,
-                     shape_predictor_path=os.path.join('models', 'shape_predictor_68_face_landmarks.dat'),
-                     face_model_path=os.path.join('models', 'dlib_face_recognition_resnet_model_v1.dat')):
+    def get_instance(
+        cls,
+        shape_predictor_path=os.path.join(
+            "models", "shape_predictor_68_face_landmarks.dat"
+        ),
+        face_model_path=os.path.join(
+            "models", "dlib_face_recognition_resnet_model_v1.dat"
+        ),
+    ):
         if not cls.instance:
             cls.instance = cls.with_files(shape_predictor_path, face_model_path)
         return cls.instance
 
     @classmethod
-    def with_files(cls,
-                   shape_predictor_path=os.path.join('models', 'shape_predictor_68_face_landmarks.dat'),
-                   face_model_path=os.path.join('models', 'dlib_face_recognition_resnet_model_v1.dat')):
+    def with_files(
+        cls,
+        shape_predictor_path=os.path.join(
+            "models", "shape_predictor_68_face_landmarks.dat"
+        ),
+        face_model_path=os.path.join(
+            "models", "dlib_face_recognition_resnet_model_v1.dat"
+        ),
+    ):
         if not cls.instance:
             shape_predictor = dlib.shape_predictor(shape_predictor_path)
             face_model = dlib.face_recognition_model_v1(face_model_path)
@@ -56,7 +68,13 @@ class FaceChecker:
         return descriptor
 
     def match(self, image_1: FILE, image_2: FILE, visual=False):
-        return distance.euclidean(self.load_image(image_1, visual), self.load_image(image_2, visual), ) < 0.6
+        return (
+            distance.euclidean(
+                self.load_image(image_1, visual),
+                self.load_image(image_2, visual),
+            )
+            < 0.6
+        )
 
 
 def match_photos(image_1: FILE, image_2: FILE):
