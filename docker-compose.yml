@@ -19,7 +19,6 @@ services:
         aliases:
           - db-postgre
 
-
   redis:
     image: redis:7.0.0-alpine3.15
     ports:
