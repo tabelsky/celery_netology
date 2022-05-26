@@ -24,8 +24,7 @@ celery_app.Task = ContextTask
 class Comparison(MethodView):
     def get(self, task_id):
         task = get_task(task_id)
-        print({"status": task.status, "result": task.result})
-        return jsonify({})
+        return jsonify({"status": task.status, "result": task.result})
 
     def post(self):
         image_ids = [self.save_image(field) for field in ("image_1", "image_2")]
@@ -42,7 +41,3 @@ app.add_url_rule(
     "/comparison/<string:task_id>", view_func=comparison_view, methods=["GET"]
 )
 app.add_url_rule("/comparison/", view_func=comparison_view, methods=["POST"])
-
-
-if __name__ == "__main__":
-    app.run()

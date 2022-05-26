@@ -6,9 +6,9 @@ from celery.result import AsyncResult
 from gridfs import GridFS
 
 import face_checker
-from config import CELERY_BACKEND, CELERY_BROKER, MONGO_DSN
+from config import CELERY_BROKER, MONGO_DSN, PG_DSN
 
-celery_app = Celery("app", backend=CELERY_BACKEND, broker=CELERY_BROKER)
+celery_app = Celery("app", backend=f"db+{PG_DSN}", broker=CELERY_BROKER)
 
 
 def get_task(task_id: str) -> AsyncResult:

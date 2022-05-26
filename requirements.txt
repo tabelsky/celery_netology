@@ -1,3 +1,4 @@
+wheel
 amqp==5.1.1
 async-timeout==4.0.2
 billiard==3.6.4.0
@@ -14,6 +15,7 @@ Deprecated==1.2.13
 dlib==19.24.0
 Flask==2.1.2
 Flask-PyMongo==2.3.0
+gunicorn==20.1.0
 idna==3.3
 imageio==2.19.2
 importlib-metadata==4.11.4
@@ -27,6 +29,7 @@ numpy==1.22.4
 packaging==21.3
 Pillow==9.1.1
 prompt-toolkit==3.0.29
+psycopg2-binary==2.9.3
 pymongo==4.1.1
 pyparsing==3.0.9
 pytz==2022.1
@@ -36,6 +39,7 @@ requests==2.27.1
 scikit-image==0.19.2
 scipy==1.8.1
 six==1.16.0
+SQLAlchemy==1.4.36
 tifffile==2022.5.4
 urllib3==1.26.9
 vine==5.0.0
